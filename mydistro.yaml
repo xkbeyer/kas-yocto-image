@@ -1,0 +1,58 @@
+# Next release Scarthgap
+header:
+  version: 12
+
+machine: qemux86-64
+distro: poky
+target: xkb-core
+
+repos:
+  poky:
+    url: https://git.yoctoproject.org/git/poky
+    branch: nanbield
+    layers:
+      meta:
+      meta-poky:
+
+  meta-openembedded:
+    url: http://git.openembedded.org/meta-openembedded
+    branch: nanbield
+    path: poky/meta-openembedded
+    layers:
+      meta-oe:
+      meta-python:
+
+  myproduct:
+    path: myproduct
+    layers:
+      meta-bsp:
+
+local_conf_header:
+  standard: |
+    CONF_VERSION = "2"
+    PACKAGE_CLASSES = "package_ipk"
+    SDKMACHINE = "x86_64"
+    USER_CLASSES = "buildstats"
+    PATCHRESOLVE = "noop"
+    BB_NUMBER_THREADS = "2"
+    PARALLEL_MAKE = "-j 2"
+
+  debug-tweaks: |
+    EXTRA_IMAGE_FEATURES = "debug-tweaks ssh-server-dropbear package-management"
+
+  diskmon: |
+    BB_DISKMON_DIRS = "\
+        STOPTASKS,${TMPDIR},20G,100K \
+        STOPTASKS,${DL_DIR},20G,100K \
+        STOPTASKS,${SSTATE_DIR},20G,100K \
+        STOPTASKS,/tmp,100M,100K \
+        HALT,${TMPDIR},1G,1K \
+        HALT,${DL_DIR},1G,1K \
+        HALT,${SSTATE_DIR},1G,1K \
+        HALT,/tmp,10M,1K"
+
+  distro_feature: |
+        DISTRO_FEATURES:append = " systemd usrmerge"
+        DISTRO_FEATURES_BACKFILL_CONSIDERED += "sysvinit"
+        VIRTUAL-RUNTIME_init_manager = "systemd"
+        VIRTUAL-RUNTIME_initscripts = "systemd-compat-units"
