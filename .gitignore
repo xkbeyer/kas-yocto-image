@@ -2,3 +2,5 @@
 tt/*
 **/build
 **/html
+**/poky
+**/yocto-cache

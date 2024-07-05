@@ -3,20 +3,20 @@ header:
   version: 12
 
 machine: qemux86-64
-distro: poky
+distro: xkb
 target: xkb-core
 
 repos:
   poky:
     url: https://git.yoctoproject.org/git/poky
-    branch: nanbield
+    branch: scarthgap
     layers:
       meta:
       meta-poky:
 
   meta-openembedded:
     url: http://git.openembedded.org/meta-openembedded
-    branch: nanbield
+    branch: scarthgap
     path: poky/meta-openembedded
     layers:
       meta-oe:
@@ -26,6 +26,7 @@ repos:
     path: myproduct
     layers:
       meta-bsp:
+      meta-xkb:
 
 local_conf_header:
   standard: |
@@ -42,17 +43,18 @@ local_conf_header:
 
   diskmon: |
     BB_DISKMON_DIRS = "\
-        STOPTASKS,${TMPDIR},20G,100K \
-        STOPTASKS,${DL_DIR},20G,100K \
-        STOPTASKS,${SSTATE_DIR},20G,100K \
-        STOPTASKS,/tmp,100M,100K \
-        HALT,${TMPDIR},1G,1K \
-        HALT,${DL_DIR},1G,1K \
-        HALT,${SSTATE_DIR},1G,1K \
-        HALT,/tmp,10M,1K"
+      STOPTASKS,${TMPDIR},20G,100K \
+      STOPTASKS,${DL_DIR},20G,100K \
+      STOPTASKS,${SSTATE_DIR},20G,100K \
+      STOPTASKS,/tmp,100M,100K \
+      HALT,${TMPDIR},1G,1K \
+      HALT,${DL_DIR},1G,1K \
+      HALT,${SSTATE_DIR},1G,1K \
+      HALT,/tmp,10M,1K"
 
   distro_feature: |
-        DISTRO_FEATURES:append = " systemd usrmerge"
-        DISTRO_FEATURES_BACKFILL_CONSIDERED += "sysvinit"
-        VIRTUAL-RUNTIME_init_manager = "systemd"
-        VIRTUAL-RUNTIME_initscripts = "systemd-compat-units"
+    DISTRO_FEATURES:append = " systemd usrmerge"
+    DISTRO_FEATURES_BACKFILL_CONSIDERED += "sysvinit"
+    VIRTUAL-RUNTIME_init_manager = "systemd"
+    VIRTUAL-RUNTIME_initscripts = "systemd-compat-units"
+
