@@ -22,4 +22,5 @@ run-kas shell mydistro.yaml -c 'runqemu tmp/deploy/images/qemux86-64/xkb-core-qe
 # Current state
 - qemu based image
 - one user
-- poky distro
+- xkb distro
+- hello world example application

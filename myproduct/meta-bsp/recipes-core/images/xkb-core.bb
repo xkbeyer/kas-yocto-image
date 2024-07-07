@@ -13,4 +13,5 @@ IMAGE_INSTALL += " \
         sudo \
         addusers \
         mc \
+        hello-world \
 	"
