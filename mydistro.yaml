@@ -26,7 +26,7 @@ repos:
     path: myproduct
     layers:
       meta-bsp:
-      meta-xkb:
+      meta-distro-xkb:
 
 local_conf_header:
   standard: |
