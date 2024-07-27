@@ -34,11 +34,16 @@ do_install:append () {
         # Add sudo accesses for user.
         install -d -m 710 ${D}${sysconfdir}/sudoers.d
         install -p -m 644 ${S}/10-john ${D}${sysconfdir}/sudoers.d/10-john
+        install -d -m 710 -g ${GRP_NAME} -o ${USER_NAME} ${D}/home/${USER_NAME}
+        install -p -m 644 -g ${GRP_NAME} -o ${USER_NAME} ${S}/.bashrc ${D}/home/${USER_NAME}
+        install -p -m 644 -g ${GRP_NAME} -o ${USER_NAME} ${S}/.profile ${D}/home/${USER_NAME}
 }
 
 FILES:${PN} = " \
             /etc/sudoers.d \
             /etc/sudoers.d/10-john \
+            /home/${USER_NAME}/.profile \
+            /home/${USER_NAME}/.bashrc \
             "
 
 # Prevents do_package failures with:
