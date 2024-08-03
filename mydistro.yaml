@@ -2,7 +2,7 @@
 header:
   version: 12
 
-machine: qemux86-64
+machine: myboard
 distro: xkb
 target: xkb-core
 
@@ -13,6 +13,7 @@ repos:
     layers:
       meta:
       meta-poky:
+      meta-yocto-bsp:
 
   meta-openembedded:
     url: http://git.openembedded.org/meta-openembedded
@@ -35,8 +36,8 @@ local_conf_header:
     SDKMACHINE = "x86_64"
     USER_CLASSES = "buildstats"
     PATCHRESOLVE = "noop"
-    BB_NUMBER_THREADS = "2"
-    PARALLEL_MAKE = "-j 2"
+    BB_NUMBER_THREADS = "3"
+    PARALLEL_MAKE = "-j 3"
 
   debug-tweaks: |
     EXTRA_IMAGE_FEATURES = "debug-tweaks ssh-server-dropbear package-management"
